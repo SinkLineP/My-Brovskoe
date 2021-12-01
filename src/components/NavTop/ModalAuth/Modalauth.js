@@ -14,21 +14,23 @@ class Modalauth extends Component {
     }
   }
 
-  hiddenClick = (e) => {
-    // e.preventDefault();
-  };
-
-
   loginOrlogout = () => {
     if (this.state.formType === "login") {
       const loginHiddenSubmit = (e) => {
         e.preventDefault();
+        const username = e.target.formBasicUsername.value;
         const email = e.target.formBasicEmail.value;
         const password = e.target.formBasicPassword.value;
+        const createUsers = {
+          username: username,
+          email: email,
+          password: password,
+        }
 
         this.props.storeUsers.map((item) => {
           if (email !== "" && password !== "" && email === item.email && password === item.password) {
-            console.log("good auth");
+            localStorage.setItem("currentUser", JSON.stringify(createUsers));
+            this.props.onCurUser(JSON.parse(localStorage.getItem("currentUser")).username);
             this.props.onHide();
           } else {
             this.setState({
@@ -44,6 +46,11 @@ class Modalauth extends Component {
         <Form onSubmit={loginHiddenSubmit}>
           <Form.Group className={this.state.alertShow} controlId="formBasicAlert">
             <Alert variant={this.state.alertVariant}>{this.state.alertTitle}</Alert>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicUsername">
+            <Form.Label>Имя пользователя</Form.Label>
+            <Form.Control type="name" placeholder="Введите имя пользователя"/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -77,17 +84,20 @@ class Modalauth extends Component {
     } else if (this.state.formType === "register") {
       const registerHiddenSubmit = (e) => {
         e.preventDefault();
+        const username = e.target.formBasicUsername.value;
         const email = e.target.formBasicEmail.value;
         const password = e.target.formBasicPassword.value;
         const confirmPassword = e.target.formBasicConfirmPassword.value;
 
-        if (email !== "" && password !== "" && confirmPassword !== "" && password === confirmPassword) {
+        if (email !== "" && password !== "" && confirmPassword !== "" && password === confirmPassword && username !== "" ) {
           const createUsers = {
+            username: username,
             email: email,
             password: password,
           }
           this.props.onAddUsers(createUsers);
-          console.log("good register");
+          localStorage.setItem("currentUser", JSON.stringify(createUsers));
+          this.props.onCurUser(JSON.parse(localStorage.getItem("currentUser")).username);
           this.props.onHide();
         } else {
           this.setState({
@@ -102,6 +112,11 @@ class Modalauth extends Component {
         <Form onSubmit={registerHiddenSubmit}>
           <Form.Group className={this.state.alertShow} controlId="formBasicAlert">
             <Alert variant={this.state.alertVariant}>{this.state.alertTitle}</Alert>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicUsername">
+            <Form.Label>Имя пользователя</Form.Label>
+            <Form.Control type="name" placeholder="Введите имя пользователя"/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -141,6 +156,7 @@ class Modalauth extends Component {
   };
 
   render() {
+    console.log(this.state.alertShow);
     return (
       <>
         <Modal
