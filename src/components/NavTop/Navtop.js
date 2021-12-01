@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Navbar, Container, Nav} from 'react-bootstrap';
 import { Link } from "react-router-dom";
-// import './'
+import './styles/navtop.scss';
 
 class NavTop extends Component {
     render() {
@@ -12,10 +12,10 @@ class NavTop extends Component {
                         <Navbar.Brand>Моё Боровское</Navbar.Brand>
                         <Nav className="me-auto">
                             <Nav.Link>
-                                <Link to="/">Главная</Link>
+                                <Link className="nav-link-decoration" to="/">Главная</Link>
                             </Nav.Link>
                             <Nav.Link>
-                                <Link to="/news">Новости</Link>
+                                <Link className="nav-link-decoration" to="/news">Новости</Link>
                             </Nav.Link>
                         </Nav>
                     </Container>
