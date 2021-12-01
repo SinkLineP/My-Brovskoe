@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {Provider} from 'react-redux';
-import { createStore } from 'redux';
+import {createStore} from 'redux';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const initalState = {
-  users: [],
+  users: [{email: 'blank@gmail.com', password: 'blank'}],
 };
 
 function employees(state = initalState, action) {
@@ -29,7 +29,8 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-store.subscribe(() => {});
+store.subscribe(() => {
+});
 
 ReactDOM.render(
   <Provider store={store}>
