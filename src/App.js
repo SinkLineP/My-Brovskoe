@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import NavTop from "./components/NavTop/Navtop";
 import {connect} from "react-redux";
 import Signup from "./components/Signup/Signup.js";
+import Login from "./components/Login/Login.js";
 import {Container} from "react-bootstrap";
 import {AuthProvider} from "./Contexts/AuthContext";
 
@@ -25,6 +26,18 @@ class App extends Component {
                   >
                     <div className="w-100" style={{maxWidth: "400px"}}>
                       <Signup/>
+                    </div>
+                  </Container>
+                </AuthProvider>
+              </Route>
+              <Route path="/login">
+                <AuthProvider>
+                  <Container
+                    className="d-flex align-items-center justify-content-center"
+                    style={{minHeight: "100vh"}}
+                  >
+                    <div className="w-100" style={{maxWidth: "400px"}}>
+                      <Login/>
                     </div>
                   </Container>
                 </AuthProvider>
