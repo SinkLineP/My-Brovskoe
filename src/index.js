@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const initalState = {
   users: [
     {
+      username: 'gost',
       email: 'blank@gmail.com',
       password: 'blank'
     }

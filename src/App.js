@@ -5,6 +5,8 @@ import News from './components/News/News.js';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import NavTop from "./components/NavTop/Navtop";
 import {connect} from "react-redux";
+import Signup from "./components/Signup/Signup.js";
+import { Container } from "react-bootstrap";
 
 class App extends Component {
   render() {
@@ -12,8 +14,18 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <NavTop curUser={this.props.storeCurrentUser} removeCurUser={(item) => this.props.onRemoveCurrentUser(item)}/>
+            <NavTop/>
             <Switch>
+              <Route path="/sign-up">
+                <Container
+                  className="d-flex align-items-center justify-content-center"
+                  style={{minHeight: "100vh"}}
+                >
+                  <div className="w-100" style={{ maxWidth: "400px" }}>
+                    <Signup/>
+                  </div>
+                </Container>
+              </Route>
               <Route path="/news">
                 <News/>
               </Route>
