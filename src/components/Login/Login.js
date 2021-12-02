@@ -1,13 +1,12 @@
 import React, {useRef, useState} from "react";
 import {Alert, Button, Card, Form} from 'react-bootstrap';
 import {useAuth} from '../../Contexts/AuthContext';
-import {Link} from 'react-router-dom';
 
 function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const {signup} = useAuth();
+  const {login} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -17,9 +16,9 @@ function Login() {
     try {
       setError('')
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await login(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError('Не удалось создать учетную запись')
+      setError('Не удалось войти')
     }
     setLoading(false)
   }
