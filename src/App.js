@@ -2,13 +2,9 @@ import './App.css';
 import React, {Component} from "react";
 import Home from './components/Home/Home.js';
 import News from './components/News/News.js';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import NavTop from "./components/NavTop/Navtop";
+import {connect} from "react-redux";
 
 class App extends Component {
   render() {
@@ -16,13 +12,13 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <NavTop />
+            <NavTop curUser={this.props.storeCurrentUser} removeCurUser={(item) => this.props.onRemoveCurrentUser(item)}/>
             <Switch>
               <Route path="/news">
-                <News />
+                <News/>
               </Route>
               <Route path="/">
-                <Home />
+                <Home/>
               </Route>
             </Switch>
           </div>
@@ -32,4 +28,13 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  (state) => ({
+    storeCurrentUser: state.currentUser,
+  }),
+  (dispatch) => ({
+    onRemoveCurrentUser: (removeCurrentUser) => {
+      dispatch({type: 'CURRENT_USER', payload: removeCurrentUser});
+    }
+  })
+)(App);

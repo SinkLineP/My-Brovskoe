@@ -4,16 +4,17 @@ import {Link} from "react-router-dom";
 import './styles/navtop.scss';
 import Modalauth from "./ModalAuth/Modalauth";
 
-const NavTop = () => {
+const NavTop = (props) => {
   const [modalShow, setModalShow] = useState(false);
-  const [currentUser, setCurrentUser] = useState("");
-
+  let emptyCurrentUser = {
+    username: "",
+    email: "",
+    password: "",
+  }
   const hiddenLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("currentUser");
-    setCurrentUser("");
+    props.removeCurUser(emptyCurrentUser);
   }
-
   return (
     <>
       <Navbar bg="success" variant="dark">
@@ -30,10 +31,10 @@ const NavTop = () => {
             </Nav.Link>
           </Nav>
           <Navbar.Collapse className="justify-content-end">
-            {currentUser !== "" ? (
+            {props.curUser.username !== "" && props.curUser.email !== "" && props.curUser.password !== "" ? (
               <>
                 <Navbar.Text>
-                  Signed in as: <span>{currentUser}</span>
+                  Signed in as: <span>{props.curUser.username}</span>
                 </Navbar.Text>
                 <Nav.Link>
                   <Button variant="outline-warning" onClick={hiddenLogout}>Logout</Button>
@@ -47,7 +48,7 @@ const NavTop = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Modalauth show={modalShow} onHide={() => setModalShow(false)} curUser={currentUser} onCurUser={(item) => setCurrentUser(item)}/>
+      <Modalauth show={modalShow} onHide={() => setModalShow(false)}/>
     </>
   )
 }

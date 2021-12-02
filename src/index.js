@@ -8,7 +8,17 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const initalState = {
-  users: [{email: 'blank@gmail.com', password: 'blank'}],
+  users: [
+    {
+      email: 'blank@gmail.com',
+      password: 'blank'
+    }
+  ],
+  currentUser: {
+    username: "",
+    email: "",
+    password: "",
+  },
 };
 
 function employees(state = initalState, action) {
@@ -18,6 +28,11 @@ function employees(state = initalState, action) {
         ...state,
         users: [...state.users, action.payload],
       };
+    case 'CURRENT_USER':
+      return {
+        ...state,
+        currentUser: action.payload,
+      }
 
     default:
       return state;

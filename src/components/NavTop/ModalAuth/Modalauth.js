@@ -96,8 +96,7 @@ class Modalauth extends Component {
             password: password,
           }
           this.props.onAddUsers(createUsers);
-          localStorage.setItem("currentUser", JSON.stringify(createUsers));
-          this.props.onCurUser(JSON.parse(localStorage.getItem("currentUser")).username);
+          this.props.onAddCurrentUser(createUsers);
           this.props.onHide();
         } else {
           this.setState({
@@ -182,10 +181,14 @@ class Modalauth extends Component {
 export default connect(
   (state) => ({
     storeUsers: state.users,
+    storeCurrentUser: state.currentUser,
   }),
   (dispatch) => ({
     onAddUsers: (addUsers) => {
       dispatch({type: 'ADD_USERS', payload: addUsers});
+    },
+    onAddCurrentUser: (addCurrentUser) => {
+      dispatch({type: 'CURRENT_USER', payload: addCurrentUser});
     },
   })
 )(Modalauth);
