@@ -1,8 +1,7 @@
 import React, {useRef, useState} from "react";
 import {Alert, Button, Card, Form} from 'react-bootstrap';
 import {useAuth} from '../../Contexts/AuthContext';
-import {Link} from 'react-router-dom';
-
+import {Link, useHistory} from 'react-router-dom';
 
 function Signup() {
   const emailRef = useRef();
@@ -11,6 +10,7 @@ function Signup() {
   const {signup} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -23,6 +23,7 @@ function Signup() {
       setError('')
       setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value);
+      history.push("/")
     } catch {
       setError('Не удалось создать учетную запись')
     }
@@ -42,11 +43,11 @@ function Signup() {
             </Form.Group>
             <Form.Group id="password">
               <Form.Label className="mt-2">Пароль</Form.Label>
-              <Form.Control type="password" ref={passwordRef} placeholder="Введите пароль" required/>
+              <Form.Control type="password" ref={passwordRef} placeholder="Введите пароль (мин 6 символов)" required/>
             </Form.Group>
             <Form.Group id="confirm-password">
               <Form.Label className="mt-2">Подтвердите пароль</Form.Label>
-              <Form.Control type="password" ref={confirmPasswordRef} placeholder="Введите ещё раз пароль" required/>
+              <Form.Control type="password" ref={confirmPasswordRef} placeholder="Введите ещё раз пароль (мин 6 символов)" required/>
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">Зарегистрироваться</Button>
           </Form>
