@@ -9,14 +9,14 @@ const NavTop = () => {
       <Navbar bg="success" variant="dark">
         <Container>
           <Navbar.Brand>
-            <Link className="nav-logo-decoration" to="/">Моё Боровское</Link>
+            <Link className="nav-logo-decoration" to="/home">Моё Боровское</Link>
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link>
-              <Link className="nav-link-decoration" to="/">Главная</Link>
+              <Link className="nav-link-decoration" to="/news">Новости</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-link-decoration" to="/news">Новости</Link>
+              <Link className="nav-link-decoration" to="/">Профиль</Link>
             </Nav.Link>
             <Navbar.Collapse className="justify-content-end">
               <Nav.Link>
