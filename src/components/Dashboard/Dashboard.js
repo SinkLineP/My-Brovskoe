@@ -2,13 +2,21 @@ import React, {useState} from "react";
 import {Alert, Button, Card, Modal} from "react-bootstrap";
 import {useAuth} from "../../Contexts/AuthContext";
 import {Link, useHistory} from "react-router-dom";
-import defaultImageProfile from './images/default-profile.png';
+import defaultImageProfile from "./images/profile/default-profile.png";
 
 function Dashboard() {
   const [error, setError] = useState('');
-  const {currentUser, logout, deleteAccount} = useAuth();
+  const {currentUser, logout, deleteAccount, updatePhotoURL} = useAuth();
   const [show, setShow] = useState(false);
   const history = useHistory();
+
+  const promises = []
+
+  if (currentUser.photoURL === null) {
+    promises.push(updatePhotoURL({
+      photoURL: defaultImageProfile
+    }))
+  }
 
   async function handleLogout() {
     setError('');
@@ -66,14 +74,8 @@ function Dashboard() {
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Фото профиля: </strong>
           <br/>
-          {currentUser.photoURL !== null ? (
-            <p>Guest</p>
-          ) : (
-            <>
-              <img style={{"width": "25%"}} src={defaultImageProfile}/>
-              <br/>
-            </>
-          )}
+          <img style={{"width": "25%"}} src={currentUser.photoURL}/>
+          <br/>
           <strong className="mb-2">Имя пользователя: </strong>{currentUser.displayName}
           <br/>
           <strong>Почта: </strong> {currentUser.email}

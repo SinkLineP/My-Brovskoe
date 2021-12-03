@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
+import CarouselSlider from "./CarouselSlider/CarouselSlider.js";
 
-class Home extends Component {
+function Home() {
 
-    render() {
-        return(
-            <>
-                home page
-
-            </>
-        )
-    }
+  return (
+        <>
+            <CarouselSlider />
+        </>
+      )
 }
 
 export default Home;

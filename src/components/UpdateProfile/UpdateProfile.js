@@ -13,15 +13,17 @@ function UpdateProfile() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
+
   function handleSubmit(e) {
     e.preventDefault()
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setError("Пароли не совпадают")
     }
 
-    const promises = []
     setLoading(true)
     setError("")
+
+    const promises = []
 
     if (emailRef.current.value !== currentUser.email) {
       promises.push(updateEmail(emailRef.current.value))

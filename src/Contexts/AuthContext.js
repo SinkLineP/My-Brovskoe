@@ -38,6 +38,10 @@ export function AuthProvider({children}) {
   function updateDisplayName(username) {
     return currentUser.updateProfile(username)
   }
+
+  function updatePhotoURL(photo) {
+    return currentUser.updateProfile(photo)
+  }
   
   function deleteAccount() {
     return currentUser.delete();
@@ -62,6 +66,7 @@ export function AuthProvider({children}) {
     updatePassword,
     deleteAccount,
     updateDisplayName,
+    updatePhotoURL,
   }
 
   return (
