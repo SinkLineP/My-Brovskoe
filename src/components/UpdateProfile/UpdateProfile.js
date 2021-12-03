@@ -7,7 +7,8 @@ function UpdateProfile() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const {currentUser, updateEmail, updatePassword} = useAuth();
+  const usernameRef = useRef();
+  const {currentUser, updateEmail, updatePassword, updateDisplayName} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -15,7 +16,7 @@ function UpdateProfile() {
   function handleSubmit(e) {
     e.preventDefault()
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return setError("Passwords do not match")
+      return setError("Пароли не совпадают")
     }
 
     const promises = []
@@ -28,13 +29,18 @@ function UpdateProfile() {
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value))
     }
+    if (usernameRef.current.value) {
+      promises.push(updateDisplayName({
+        displayName: usernameRef.current.value
+      }))
+    }
 
     Promise.all(promises)
       .then(() => {
-        history.push("/")
+        history.push("/home")
       })
       .catch(() => {
-        setError("Failed to update account")
+        setError("Не получилось изменить аккаунт")
       })
       .finally(() => {
         setLoading(false)
@@ -57,6 +63,10 @@ function UpdateProfile() {
                 required
                 defaultValue={currentUser.email}
               />
+            </Form.Group>
+            <Form.Group id="username">
+              <Form.Label className="mt-2">Имя пользователя</Form.Label>
+              <Form.Control type="string" ref={usernameRef} placeholder="Введите имя" required/>
             </Form.Group>
             <Form.Group id="password">
               <Form.Label className="mt-2">Пароль</Form.Label>

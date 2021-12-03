@@ -20,12 +20,10 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <NavTop/>
-            <Switch>
+            <AuthProvider>
+              <NavTop/>
               <Route path="/news" component={News}/>
               <Route path="/home" component={Home}/>
-            </Switch>
-            <AuthProvider>
               <Switch>
                 <Container className="d-flex align-items-center justify-content-center">
                   <div className="w-100" style={{maxWidth: "400px"}}>
