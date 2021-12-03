@@ -12,25 +12,33 @@ function UpdateProfile() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  function handleSubmit(e) {
+    e.preventDefault()
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return setError('Пароли не совпадают');
+      return setError("Passwords do not match")
     }
 
+    const promises = []
+    setLoading(true)
+    setError("")
 
-
-    try {
-      setError('')
-      setLoading(true)
-      // await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/")
-    } catch {
-      setError('Не удалось создать учетную запись')
+    if (emailRef.current.value !== currentUser.email) {
+      promises.push(updateEmail(emailRef.current.value))
     }
-    setLoading(false)
+    if (passwordRef.current.value) {
+      promises.push(updatePassword(passwordRef.current.value))
+    }
 
+    Promise.all(promises)
+      .then(() => {
+        history.push("/")
+      })
+      .catch(() => {
+        setError("Failed to update account")
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   return (
