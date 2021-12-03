@@ -1,6 +1,7 @@
 import './App.css';
 import React, {Component} from "react";
 import Home from './components/Home/Home.js';
+import Dashboard from './components/Dashboard/Dashboard.js';
 import News from './components/News/News.js';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import NavTop from "./components/NavTop/Navtop";
@@ -44,6 +45,9 @@ class App extends Component {
               </Route>
               <Route path="/news">
                 <News/>
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard/>
               </Route>
               <Route path="/">
                 <Home/>
